@@ -38,13 +38,3 @@ INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1005,36
 INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1006,15000,1,3);
 INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1007,26000,2,2);
 
-
-select * from cliente;
-select * from Conta;
-select * from tipo_conta;
-
-select cliente.nome,conta.saldo,conta.agencia,conta.numero,conta.ID_tipo from conta inner join cliente on conta.ID_cliente = cliente.id;
-
-drop table conta;
-drop table cliente;
-drop table tipo_conta;
