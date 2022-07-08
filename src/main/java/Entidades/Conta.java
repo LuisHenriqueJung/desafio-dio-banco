@@ -1,5 +1,7 @@
 package Entidades;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,23 +74,14 @@ public class Conta {
                 preparedStatement.setInt(4,cliente.getId());
                 preparedStatement.setInt(5, id_tipo);
                 preparedStatement.executeUpdate();
-                System.out.println("sucesso, pode descarnsar!");
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
     }
-        public void inserirCliente(Cliente cliente) throws SQLException {
-            try (Connection connection = getConnection()) {
-                String SQL = "INSERT INTO Cliente (nome,idade) VALUES (?,?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-                preparedStatement.setString(1, cliente.getnome());
-                preparedStatement.setInt(2, cliente.getIdade());
-                preparedStatement.executeUpdate();
-            }
-        }
+
         public Conta retornaConta(int numero) throws SQLException {
             try(Connection connection = getConnection()){
-                String SQL = "SELECT * FROM conta WHERE id=(?)";
+                String SQL = "SELECT * FROM conta WHERE numero=(?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
                 preparedStatement.setInt(1,numero);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -98,6 +91,28 @@ public class Conta {
                 }
             }
             return null;
+            }
+            public String retornaDadosConta (int numero) throws SQLException {
+                try (Connection connection = getConnection()) {
+                    String SQL = "SELECT cliente.nome,conta.saldo,conta.agencia,conta.numero FROM conta INNER JOIN cliente ON conta.ID_cliente = cliente.id WHERE numero = (?)";
+                    PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+                    preparedStatement.setInt(1, numero);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        String nome = resultSet.getString("nome");
+                        int saldo = resultSet.getInt("saldo");
+                        int agencia = resultSet.getInt("agencia");
+                        int numeroC = resultSet.getInt("numero");
+                        String info = ("-----------------------\n" +
+                                "Titular da conta: " + nome +
+                                "\nNumero da conta: " + numeroC +
+                                "\nAgência: " + agencia +
+                                "\nSaldo: " + saldo +
+                                     "\n-----------------------");
+                        return info;
+                    }
+                }
+                return null;
             }
     public int getAgencia() {
         return agencia;

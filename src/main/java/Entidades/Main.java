@@ -11,13 +11,13 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         int entradaUser;
         do {
-            System.out.println("------Bem vindo ao banco inter----------");
-            System.out.println("Selecione uma operação:");
-            System.out.println(
-                    "1. Cadastrar cliente; \n" +
-                            "2. Criar nova conta; \n" +
-                            "3. Acessar uma conta; \n" +
-                            "9. Sair da aplicação!");
+            System.out.println("---Bem vindo ao banco inter---\n "+
+                                "Selecione uma operação: \n"+
+                                "1. Cadastrar cliente; \n" +
+                                "2. Criar nova conta; \n" +
+                                "3. Acessar uma conta; \n" +
+                                "9. Sair da aplicação!\n" +
+                                "-----------------------");
 
             entradaUser = scan.nextInt();
             switch (entradaUser) {
@@ -44,22 +44,23 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("Digite o numero da conta que deseja acessar: ");
-                    int contaDeposito = scan.nextInt();
+                    int contaAcesso = scan.nextInt();
 
                     int interfaceConta;
                     do {
-                        System.out.println("------Bem vindo a sua conta!------ \n" +
-                                "O que deseja fazer? \n " +
-                                "1. Depositar. \n" +
-                                "2. Sacar.\n" +
-                                "3. Transferir.\n"+
-                                "4. Consultar saldo\n"+
-                                "5. Imprimir informações da conta.\n"+
-                                "9. Para sair da conta.");
+                        System.out.println("--------Bem vindo a sua conta!------- \n" +
+                                            "O que deseja fazer? \n " +
+                                            "1. Depositar. \n" +
+                                            "2. Sacar.\n" +
+                                            "3. Transferir.\n"+
+                                            "4. Consultar saldo\n"+
+                                            "5. Imprimir informações da conta.\n"+
+                                            "9. Para sair da conta."+
+                                            "--------------------------------------");
 
                         interfaceConta = scan.nextInt();
                         Conta contaUser = new Conta();
-                        contaUser = contaUser.retornaConta(contaDeposito);
+                        contaUser = contaUser.retornaConta(contaAcesso);
 
                         switch (interfaceConta) {
                             case 1:
@@ -85,11 +86,11 @@ public class Main {
                                 System.out.println("Seu saldo é de: "+ contaUser.getSaldo() + " R$.");
                                 break;
                             case 5:
-                                contaUser.imprimirInfosComuns();
+                                System.out.println(contaUser.retornaDadosConta(contaUser.getNumero()));
+
                                 break;
                             default:
                                 System.out.println("Digite uma opção válida");
-
                         }
                     } while (interfaceConta != 9);
                 default:
