@@ -1,0 +1,50 @@
+CREATE TABLE Cliente (
+id INTEGER primary key auto_increment, 
+nome VARCHAR(80) NOT NULL,
+idade integer not null);
+
+create table tipo_conta (
+id  INTEGER primary key auto_increment,
+descricao varchar(30)
+);
+
+insert into tipo_conta (descricao) values ("Conta-Corrente");
+insert into tipo_conta (descricao) values ("Conta-Poupança");
+
+create table Conta (
+id INTEGER primary key auto_increment, 
+agencia INTEGER not null,
+numero integer not null,
+saldo double,
+ID_tipo integer,
+ID_cliente integer,
+constraint fk_clienteConta foreign key (ID_cliente) References Cliente (id),
+constraint fk_tipoConta foreign key (ID_tipo) references tipo_conta (id)
+);
+
+INSERT INTO Cliente (nome,idade) VALUES ("André", 27);
+INSERT INTO Cliente (nome,idade) VALUES ("Ana", 21);
+INSERT INTO Cliente (nome,idade) VALUES ("Joana", 37);
+INSERT INTO Cliente (nome,idade) VALUES ("Venilton", 32);
+INSERT INTO Cliente (nome,idade) VALUES ("Luis Henrique", 26);
+INSERT INTO Cliente (nome,idade) VALUES ("Vanessa Fernandes", 23);
+
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1000,650,1,2);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1001,12000,2,1);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1002,45670,2,4);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1003,4500,1,6);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1004,12000,1,5);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1005,36000,2,6);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1006,15000,1,3);
+INSERT INTO Conta (agencia,numero,saldo,ID_tipo,ID_cliente) VALUES (0001,1007,26000,2,2);
+
+
+select * from cliente;
+select * from Conta;
+select * from tipo_conta;
+
+select cliente.nome,conta.saldo,conta.agencia,conta.numero,conta.ID_tipo from conta inner join cliente on conta.ID_cliente = cliente.id;
+
+drop table conta;
+drop table cliente;
+drop table tipo_conta;

@@ -55,7 +55,7 @@ public class Main {
                                             "3. Transferir.\n"+
                                             "4. Consultar saldo\n"+
                                             "5. Imprimir informações da conta.\n"+
-                                            "9. Para sair da conta."+
+                                            "9. Para sair da conta.\n"+
                                             "--------------------------------------");
 
                         interfaceConta = scan.nextInt();
